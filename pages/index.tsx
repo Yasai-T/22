@@ -1,4 +1,12 @@
-import { Box, Button, HStack, useDisclosure, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  HStack,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useRecoilValue } from "recoil";
@@ -16,18 +24,22 @@ const Home: NextPage = () => {
       <Head>
         <title>twenty two</title>
       </Head>
-      <HStack justifyContent={"end"}>
-        <Button leftIcon={<AddIcon />} onClick={onOpen}>
-          Add
-        </Button>
-      </HStack>
-      <Box p="10">
-        <VStack>
-          {todoList.map((todo) => (
-            <TodoCard todo={todo} key={todo.id} />
-          ))}
-        </VStack>
-      </Box>
+      <Flex flexDir="column" minH="100vh">
+        <Container maxW={"container.xl"}>
+          <HStack justifyContent={"end"}>
+            <Button leftIcon={<AddIcon />} onClick={onOpen}>
+              Add
+            </Button>
+          </HStack>
+          <Box flex={1}>
+            <VStack spacing={2} align={"stretch"}>
+              {todoList.map((todo) => (
+                <TodoCard todo={todo} key={todo.id} />
+              ))}
+            </VStack>
+          </Box>
+        </Container>
+      </Flex>
       <TodoItemCreator onClose={onClose} isOpen={isOpen} />
     </div>
   );
