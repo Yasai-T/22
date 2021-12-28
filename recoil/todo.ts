@@ -1,5 +1,5 @@
 import { datatype, lorem } from "faker";
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 export type Todo = {
   id: string;
@@ -18,4 +18,28 @@ export const todoListState = atom<Todo[]>({
       isComplete: false,
     },
   ],
+});
+
+export type TodoFilter = "Show All" | "Show Completed" | "Show Uncompleted";
+
+export const todoListFilterState = atom<TodoFilter>({
+  key: "todoListFilterState",
+  default: "Show All",
+});
+
+export const filteredTodoListState = selector({
+  key: "filteredTodoListState",
+  get: ({ get }) => {
+    const filter = get(todoListFilterState);
+    const list = get(todoListState);
+
+    switch (filter) {
+      case "Show Completed":
+        return list.filter((item) => item.isComplete);
+      case "Show Uncompleted":
+        return list.filter((item) => !item.isComplete);
+      default:
+        return list;
+    }
+  },
 });
