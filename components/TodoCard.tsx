@@ -56,7 +56,7 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
   };
 
   return (
-    <Box borderWidth="thin" borderRadius="lg" p="6">
+    <Box borderWidth="medium" borderRadius="lg" p="6">
       <HStack justifyContent="space-between">
         <Checkbox isChecked={todo.isComplete} onChange={toggleItemCompletion}>
           {todo.isComplete ? (
@@ -76,14 +76,16 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
           onClick={onOpen}
         />
       </HStack>
-      <Heading as="h4" size="lg" py="2">
-        {todo.title}
-      </Heading>
-      {todo.text && (
-        <Box whiteSpace={"pre-wrap"} wordBreak={"break-word"}>
-          {todo.text}
-        </Box>
-      )}
+      <Box bgGradient="linear(to-l, #7928CA, #FF0080)" bgClip={"text"}>
+        <Heading as="h4" size="lg" py="2">
+          {todo.title}
+        </Heading>
+        {todo.text && (
+          <Box whiteSpace={"pre-wrap"} wordBreak={"break-word"}>
+            {todo.text}
+          </Box>
+        )}
+      </Box>
       <TodoItemForm
         formType="Edit"
         isOpen={isOpen}
