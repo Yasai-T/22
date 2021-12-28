@@ -39,13 +39,21 @@ const Home: NextPage = () => {
       <Head>
         <title>twenty two</title>
       </Head>
-      <Flex flexDir="column" minH="100vh">
-        <Container maxW={"container.xl"}>
-          <HStack justifyContent={"end"}>
+      <Flex flexDir="column" minH="100vh" position="relative">
+        <Container
+          maxW={"container.xl"}
+          bgColor={"Menu"}
+          position={"sticky"}
+          top="0"
+          zIndex={"sticky"}
+        >
+          <HStack justifyContent={"end"} p="2">
             <Button leftIcon={<AddIcon />} onClick={onOpen}>
               Add
             </Button>
           </HStack>
+        </Container>
+        <Container maxW={"container.xl"}>
           <Box flex={1}>
             <VStack spacing={2} align={"stretch"}>
               {todoList.map((todo) => (
