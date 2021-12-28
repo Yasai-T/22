@@ -1,7 +1,7 @@
 import { Box, FormControl, FormLabel, Select } from "@chakra-ui/react";
 import { ChangeEvent, VFC } from "react";
 import { useRecoilState } from "recoil";
-import { TodoFilter, todoListFilterState } from "../recoil/todo";
+import { TodoFilter, todoListFilterState } from "../atoms/todoFilter";
 
 export const TodoListFilters: VFC = () => {
   const [filter, setFilter] = useRecoilState(todoListFilterState);

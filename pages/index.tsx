@@ -11,7 +11,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { TodoCard } from "../components/TodoCard";
-import { filteredTodoListState, todoListState } from "../recoil/todo";
 import { AddIcon } from "@chakra-ui/icons";
 import { TodoInput, TodoItemForm } from "../components/TodoItemForm";
 import { datatype } from "faker";
@@ -19,6 +18,8 @@ import { SubmitHandler } from "react-hook-form";
 import { TodoListFilters } from "../components/TodoListFilters";
 import { TodoListStats } from "../components/TodoListStats";
 import { ToggleDarkMode } from "../components/ToggleDarkMode";
+import { filteredTodoListState } from "../selectors/filteredTodoListState";
+import { todoListState } from "../atoms/todoListState";
 
 const Home: NextPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -50,7 +51,7 @@ const Home: NextPage = () => {
           top="0"
           zIndex={"sticky"}
         >
-          <HStack justifyContent={'space-between'} p="2">
+          <HStack justifyContent={"space-between"} p="2">
             <TodoListStats />
             <TodoListFilters />
             <Button leftIcon={<AddIcon />} onClick={onOpen}>

@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { ReactNode, VFC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Todo } from "../recoil/todo";
+import { Todo } from "../atoms/todoListState";
 
 export type TodoInput = Pick<Todo, "text" | "title">;
 

@@ -9,10 +9,10 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState, VFC } from "react";
+import { VFC } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import { Todo, todoListState } from "../recoil/todo";
+import { Todo, todoListState } from "../atoms/todoListState";
 import { TodoInput, TodoItemForm } from "./TodoItemForm";
 
 type Props = {
