@@ -18,6 +18,7 @@ import { datatype } from "faker";
 import { SubmitHandler } from "react-hook-form";
 import { TodoListFilters } from "../components/TodoListFilters";
 import { TodoListStats } from "../components/TodoListStats";
+import { ToggleDarkMode } from "../components/ToggleDarkMode";
 
 const Home: NextPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -55,6 +56,7 @@ const Home: NextPage = () => {
             <Button leftIcon={<AddIcon />} onClick={onOpen}>
               Add
             </Button>
+            <ToggleDarkMode />
           </HStack>
         </Container>
         <Container maxW={"container.xl"}>
