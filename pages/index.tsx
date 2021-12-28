@@ -11,15 +11,16 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { TodoCard } from "../components/TodoCard";
-import { todoListState } from "../recoil/todo";
+import { filteredTodoListState, todoListState } from "../recoil/todo";
 import { AddIcon } from "@chakra-ui/icons";
 import { TodoInput, TodoItemForm } from "../components/TodoItemForm";
 import { datatype } from "faker";
 import { SubmitHandler } from "react-hook-form";
+import { TodoListFilters } from "../components/TodoListFilters";
 
 const Home: NextPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const todoList = useRecoilValue(todoListState);
+  const todoList = useRecoilValue(filteredTodoListState);
   const setTodoList = useSetRecoilState(todoListState);
 
   const onSubmit: SubmitHandler<TodoInput> = ({ title, text }) => {
@@ -48,6 +49,7 @@ const Home: NextPage = () => {
           zIndex={"sticky"}
         >
           <HStack justifyContent={"end"} p="2">
+            <TodoListFilters />
             <Button leftIcon={<AddIcon />} onClick={onOpen}>
               Add
             </Button>
