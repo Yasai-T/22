@@ -46,6 +46,7 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
       ...todo,
       title: edited.title,
       text: edited.text,
+      relatedList: edited.relatedList,
     });
     setTodoList(newList);
   };

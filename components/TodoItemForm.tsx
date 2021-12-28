@@ -18,8 +18,9 @@ import {
 import { ReactNode, VFC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Todo } from "../atoms/todoListState";
+import { RelatedListForm } from "./RelatedListForm";
 
-export type TodoInput = Pick<Todo, "text" | "title">;
+export type TodoInput = Pick<Todo, "text" | "title" | "relatedList">;
 
 type Props = Pick<UseDisclosureReturn, "isOpen" | "onClose"> & {
   formType: "Add" | "Edit";
@@ -41,8 +42,9 @@ export const TodoItemForm: VFC<Props> = ({
   });
 
   const onSubmit: SubmitHandler<TodoInput> = (values) => {
+    console.log({ values });
     onValid(values);
-    formType === "Add" && reset({ title: "", text: "" });
+    formType === "Add" && reset({ title: "", text: "", relatedList: [] });
     onClose();
   };
 
@@ -70,6 +72,10 @@ export const TodoItemForm: VFC<Props> = ({
                   name="text"
                   render={({ field }) => <Textarea rows={10} {...field} />}
                 />
+              </Box>
+              <Box>
+                <FormLabel>Related Todo List</FormLabel>
+                <RelatedListForm control={control} todoId={initialValue?.id} />
               </Box>
             </Stack>
           </DrawerBody>

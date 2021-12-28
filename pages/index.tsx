@@ -24,13 +24,14 @@ const Home: NextPage = () => {
 
   const setTodoList = useSetRecoilState(todoListState);
 
-  const onSubmit: SubmitHandler<TodoInput> = ({ title, text }) => {
+  const onSubmit: SubmitHandler<TodoInput> = ({ title, text, relatedList }) => {
     setTodoList((prev) => [
       ...prev,
       {
         id: datatype.uuid(),
         title,
         text,
+        relatedList,
         isComplete: false,
       },
     ]);

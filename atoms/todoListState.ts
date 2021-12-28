@@ -6,6 +6,7 @@ export type Todo = {
   title: string;
   text?: string;
   isComplete: boolean;
+  relatedList: Pick<Todo, "id">[];
 };
 
 export const todoListState = atom<Todo[]>({
@@ -16,18 +17,21 @@ export const todoListState = atom<Todo[]>({
       title: lorem.word(),
       text: lorem.paragraph(),
       isComplete: false,
+      relatedList: [],
     },
     {
       id: datatype.uuid(),
       title: lorem.word(),
       text: lorem.paragraph(),
       isComplete: false,
+      relatedList: [],
     },
     {
       id: datatype.uuid(),
       title: lorem.word(),
       text: lorem.paragraph(),
       isComplete: false,
+      relatedList: [],
     },
   ],
 });
