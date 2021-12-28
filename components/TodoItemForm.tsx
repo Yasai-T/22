@@ -22,20 +22,25 @@ export type TodoInput = Pick<Todo, "text" | "title">;
 
 type Props = Pick<UseDisclosureReturn, "isOpen" | "onClose"> & {
   formType: "Add" | "Edit";
+  initialValue?: Todo;
   onValid: SubmitHandler<TodoInput>;
 };
 
 export const TodoItemForm: VFC<Props> = ({
   isOpen,
   formType,
+  initialValue,
   onClose,
   onValid,
 }) => {
-  const { control, handleSubmit, reset } = useForm<TodoInput>();
+  const { control, handleSubmit, reset } = useForm<TodoInput>({
+    defaultValues: initialValue,
+  });
 
   const onSubmit: SubmitHandler<TodoInput> = (values) => {
     onValid(values);
-    reset({ title: "", text: "" });
+    formType === "Add" && reset({ title: "", text: "" });
+    onClose();
   };
 
   return (
@@ -66,7 +71,7 @@ export const TodoItemForm: VFC<Props> = ({
             </Stack>
           </DrawerBody>
           <DrawerFooter>
-            <Button type="submit">Add</Button>
+            <Button type="submit">{formType}</Button>
           </DrawerFooter>
         </form>
       </DrawerContent>

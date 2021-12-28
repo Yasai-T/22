@@ -6,10 +6,13 @@ import {
   Heading,
   HStack,
   IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useState, VFC } from "react";
+import { SubmitHandler } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { Todo, todoListState } from "../recoil/todo";
+import { TodoInput, TodoItemForm } from "./TodoItemForm";
 
 type Props = {
   todo: Todo;
@@ -24,17 +27,24 @@ function removeItemAtIndex<T>(arr: T[], index: number) {
 }
 
 export const TodoCard: VFC<Props> = ({ todo }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const index = todoList.findIndex((t) => t === todo);
-
-  const [isEdit, setIsEdit] = useState(false);
-
-  const toggleIsEdit = () => setIsEdit((prev) => !prev);
 
   const toggleItemCompletion = () => {
     const newList = replaceItemAtIndex(todoList, index, {
       ...todo,
       isComplete: !todo.isComplete,
+    });
+    setTodoList(newList);
+  };
+
+  const editItem: SubmitHandler<TodoInput> = (edited) => {
+    const newList = replaceItemAtIndex(todoList, index, {
+      ...todo,
+      title: edited.title,
+      text: edited.text,
     });
     setTodoList(newList);
   };
@@ -57,13 +67,20 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
           isRound
           aria-label="edit todo item"
           icon={<EditIcon />}
-          onClick={toggleIsEdit}
+          onClick={onOpen}
         />
       </HStack>
       <Heading as="h4" size="lg" py="2">
         {todo.title}
       </Heading>
       {todo.text && <Box>{todo.text}</Box>}
+      <TodoItemForm
+        formType="Edit"
+        isOpen={isOpen}
+        onClose={onClose}
+        onValid={editItem}
+        initialValue={todo}
+      />
     </Box>
   );
 };
