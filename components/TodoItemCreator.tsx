@@ -11,6 +11,7 @@ import {
   FormLabel,
   Input,
   Stack,
+  Textarea,
   UseDisclosureReturn,
 } from "@chakra-ui/react";
 import { datatype } from "faker";
@@ -62,7 +63,7 @@ export const TodoItemCreator: VFC<Props> = ({ isOpen, onClose }) => {
                 <Controller
                   control={control}
                   name="text"
-                  render={({ field }) => <Input type="text" {...field} />}
+                  render={({ field }) => <Textarea {...field} />}
                 />
               </Box>
             </Stack>
