@@ -56,7 +56,7 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
   };
 
   return (
-    <Box maxW="sm" borderWidth="thin" borderRadius="lg" p="6">
+    <Box borderWidth="thin" borderRadius="lg" p="6">
       <HStack justifyContent="space-between">
         <Checkbox isChecked={todo.isComplete} onChange={toggleItemCompletion}>
           {todo.isComplete ? (

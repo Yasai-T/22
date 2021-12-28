@@ -4,9 +4,15 @@ import { todoListState } from "../atoms/todoListState";
 
 export const filteredTodoListState = selector({
   key: "filteredTodoListState",
-  get: ({ get }) => {
+  get: async ({ get }) => {
     const filter = get(todoListFilterState);
     const list = get(todoListState);
+
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("");
+      }, 500);
+    });
 
     switch (filter) {
       case "Show Completed":

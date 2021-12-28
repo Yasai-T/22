@@ -1,4 +1,8 @@
-import { ChakraProvider, extendTheme, ThemeConfig } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  extendTheme,
+  ThemeConfig,
+} from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 

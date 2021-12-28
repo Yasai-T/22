@@ -5,12 +5,10 @@ import {
   Flex,
   HStack,
   useDisclosure,
-  VStack,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { TodoCard } from "../components/TodoCard";
+import { useSetRecoilState } from "recoil";
 import { AddIcon } from "@chakra-ui/icons";
 import { TodoInput, TodoItemForm } from "../components/TodoItemForm";
 import { datatype } from "faker";
@@ -18,12 +16,12 @@ import { SubmitHandler } from "react-hook-form";
 import { TodoListFilters } from "../components/TodoListFilters";
 import { TodoListStats } from "../components/TodoListStats";
 import { ToggleDarkMode } from "../components/ToggleDarkMode";
-import { filteredTodoListState } from "../selectors/filteredTodoListState";
 import { todoListState } from "../atoms/todoListState";
+import { TodoList } from "../components/TodoList";
 
 const Home: NextPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const todoList = useRecoilValue(filteredTodoListState);
+
   const setTodoList = useSetRecoilState(todoListState);
 
   const onSubmit: SubmitHandler<TodoInput> = ({ title, text }) => {
@@ -62,11 +60,7 @@ const Home: NextPage = () => {
         </Container>
         <Container maxW={"container.xl"}>
           <Box flex={1}>
-            <VStack spacing={2} align={"stretch"}>
-              {todoList.map((todo) => (
-                <TodoCard todo={todo} key={todo.id} />
-              ))}
-            </VStack>
+            <TodoList />
           </Box>
         </Container>
       </Flex>
