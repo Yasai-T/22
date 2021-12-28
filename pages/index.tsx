@@ -17,6 +17,7 @@ import { TodoInput, TodoItemForm } from "../components/TodoItemForm";
 import { datatype } from "faker";
 import { SubmitHandler } from "react-hook-form";
 import { TodoListFilters } from "../components/TodoListFilters";
+import { TodoListStats } from "../components/TodoListStats";
 
 const Home: NextPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -43,12 +44,13 @@ const Home: NextPage = () => {
       <Flex flexDir="column" minH="100vh" position="relative">
         <Container
           maxW={"container.xl"}
-          bgColor={"Menu"}
+          backdropFilter="blur(6px)"
           position={"sticky"}
           top="0"
           zIndex={"sticky"}
         >
-          <HStack justifyContent={"end"} p="2">
+          <HStack justifyContent={'space-between'} p="2">
+            <TodoListStats />
             <TodoListFilters />
             <Button leftIcon={<AddIcon />} onClick={onOpen}>
               Add

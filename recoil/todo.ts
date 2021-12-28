@@ -17,6 +17,18 @@ export const todoListState = atom<Todo[]>({
       text: lorem.paragraph(),
       isComplete: false,
     },
+    {
+      id: datatype.uuid(),
+      title: lorem.word(),
+      text: lorem.paragraph(),
+      isComplete: false,
+    },
+    {
+      id: datatype.uuid(),
+      title: lorem.word(),
+      text: lorem.paragraph(),
+      isComplete: false,
+    },
   ],
 });
 
@@ -41,5 +53,24 @@ export const filteredTodoListState = selector({
       default:
         return list;
     }
+  },
+});
+
+export const todoListStatsState = selector({
+  key: "todoListStatsState",
+  get: ({ get }) => {
+    const todoList = get(todoListState);
+    const totalNum = todoList.length;
+    const totalCompletedNum = todoList.filter((item) => item.isComplete).length;
+    const totalUncompletedNum = totalNum - totalCompletedNum;
+    const percentCompleted =
+      totalNum === 0 ? 0 : Math.round((totalCompletedNum / totalNum) * 100);
+
+    return {
+      totalNum,
+      totalCompletedNum,
+      totalUncompletedNum,
+      percentCompleted,
+    };
   },
 });
