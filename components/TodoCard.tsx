@@ -2,6 +2,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import {
   Badge,
   Box,
+  Button,
   Checkbox,
   Heading,
   HStack,
@@ -49,6 +50,11 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
     setTodoList(newList);
   };
 
+  const deleteItem = () => {
+    const newList = removeItemAtIndex(todoList, index);
+    setTodoList(newList);
+  };
+
   return (
     <Box maxW="sm" borderWidth="thin" borderRadius="lg" p="6">
       <HStack justifyContent="space-between">
@@ -80,6 +86,11 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
         onClose={onClose}
         onValid={editItem}
         initialValue={todo}
+        footerContent={
+          <Button colorScheme={"red"} onClick={deleteItem}>
+            Delete
+          </Button>
+        }
       />
     </Box>
   );

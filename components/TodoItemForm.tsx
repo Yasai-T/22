@@ -9,12 +9,13 @@ import {
   DrawerHeader,
   DrawerOverlay,
   FormLabel,
+  HStack,
   Input,
   Stack,
   Textarea,
   UseDisclosureReturn,
 } from "@chakra-ui/react";
-import { VFC } from "react";
+import { ReactNode, VFC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Todo } from "../recoil/todo";
 
@@ -23,6 +24,7 @@ export type TodoInput = Pick<Todo, "text" | "title">;
 type Props = Pick<UseDisclosureReturn, "isOpen" | "onClose"> & {
   formType: "Add" | "Edit";
   initialValue?: Todo;
+  footerContent?: ReactNode;
   onValid: SubmitHandler<TodoInput>;
 };
 
@@ -30,6 +32,7 @@ export const TodoItemForm: VFC<Props> = ({
   isOpen,
   formType,
   initialValue,
+  footerContent,
   onClose,
   onValid,
 }) => {
@@ -65,13 +68,16 @@ export const TodoItemForm: VFC<Props> = ({
                 <Controller
                   control={control}
                   name="text"
-                  render={({ field }) => <Textarea {...field} />}
+                  render={({ field }) => <Textarea rows={10} {...field} />}
                 />
               </Box>
             </Stack>
           </DrawerBody>
           <DrawerFooter>
-            <Button type="submit">{formType}</Button>
+            <HStack spacing={4}>
+              {footerContent}
+              <Button type="submit">{formType}</Button>
+            </HStack>
           </DrawerFooter>
         </form>
       </DrawerContent>
