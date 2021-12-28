@@ -13,6 +13,7 @@ import { VFC } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { Todo, todoListState } from "../atoms/todoListState";
+import { bgGradient } from "./colors";
 import { TodoInput, TodoItemForm } from "./TodoItemForm";
 
 type Props = {
@@ -77,7 +78,7 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
           onClick={onOpen}
         />
       </HStack>
-      <Box bgGradient="linear(to-l, #7928CA, #FF0080)" bgClip={"text"}>
+      <Box bgGradient={bgGradient} bgClip={"text"}>
         <Heading as="h4" size="lg" py="2">
           {todo.title}
         </Heading>

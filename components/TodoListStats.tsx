@@ -8,6 +8,7 @@ import {
 import { VFC } from "react";
 import { useRecoilValue } from "recoil";
 import { todoListStatsState } from "../selectors/todoListStatsState";
+import { bgGradient } from "./colors";
 
 export const TodoListStats: VFC = () => {
   const { totalCompletedNum, totalNum, percentCompleted } =
@@ -15,12 +16,14 @@ export const TodoListStats: VFC = () => {
 
   return (
     <Box>
-      <Stat>
+      <Stat bgGradient={bgGradient} bgClip={"text"}>
         <StatLabel>Completed</StatLabel>
         <StatNumber>
           {totalCompletedNum}/{totalNum}
         </StatNumber>
-        <StatHelpText>{percentCompleted}%</StatHelpText>
+        <StatHelpText bgGradient={bgGradient} bgClip={"text"}>
+          {percentCompleted}%
+        </StatHelpText>
       </Stat>
     </Box>
   );
