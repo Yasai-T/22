@@ -1,4 +1,4 @@
-import { Container } from "@nextui-org/react";
+import { Container } from "@chakra-ui/react";
 import { ReactNode, VFC } from "react";
 
 type Props = {
