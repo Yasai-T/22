@@ -79,7 +79,11 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
       <Heading as="h4" size="lg" py="2">
         {todo.title}
       </Heading>
-      {todo.text && <Box>{todo.text}</Box>}
+      {todo.text && (
+        <Box whiteSpace={"pre-wrap"} wordBreak={"break-word"}>
+          {todo.text}
+        </Box>
+      )}
       <TodoItemForm
         formType="Edit"
         isOpen={isOpen}
