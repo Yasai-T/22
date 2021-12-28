@@ -14,30 +14,27 @@ import {
   Textarea,
   UseDisclosureReturn,
 } from "@chakra-ui/react";
-import { datatype } from "faker";
-import { forwardRef, useRef, VFC } from "react";
+import { VFC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
-import { Todo, todoListState } from "../recoil/todo";
+import { Todo } from "../recoil/todo";
 
-type InputValues = Pick<Todo, "text" | "title">;
+export type TodoInput = Pick<Todo, "text" | "title">;
 
-type Props = Pick<UseDisclosureReturn, "isOpen" | "onClose">;
+type Props = Pick<UseDisclosureReturn, "isOpen" | "onClose"> & {
+  formType: "Add" | "Edit";
+  onValid: SubmitHandler<TodoInput>;
+};
 
-export const TodoItemCreator: VFC<Props> = ({ isOpen, onClose }) => {
-  const { control, handleSubmit, reset } = useForm<InputValues>();
-  const setTodoList = useSetRecoilState(todoListState);
+export const TodoItemForm: VFC<Props> = ({
+  isOpen,
+  formType,
+  onClose,
+  onValid,
+}) => {
+  const { control, handleSubmit, reset } = useForm<TodoInput>();
 
-  const onSubmit: SubmitHandler<InputValues> = ({ title, text }) => {
-    setTodoList((prev) => [
-      ...prev,
-      {
-        id: datatype.uuid(),
-        title,
-        text,
-        isComplete: false,
-      },
-    ]);
+  const onSubmit: SubmitHandler<TodoInput> = (values) => {
+    onValid(values);
     reset({ title: "", text: "" });
   };
 
@@ -46,7 +43,7 @@ export const TodoItemCreator: VFC<Props> = ({ isOpen, onClose }) => {
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
-        <DrawerHeader>Add Todo</DrawerHeader>
+        <DrawerHeader>{formType} Todo</DrawerHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DrawerBody>
             <Stack spacing="2">

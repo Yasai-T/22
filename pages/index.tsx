@@ -9,15 +9,30 @@ import {
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { TodoCard } from "../components/TodoCard";
 import { todoListState } from "../recoil/todo";
 import { AddIcon } from "@chakra-ui/icons";
-import { TodoItemCreator } from "../components/TodoItemCreator";
+import { TodoInput, TodoItemForm } from "../components/TodoItemForm";
+import { datatype } from "faker";
+import { SubmitHandler } from "react-hook-form";
 
 const Home: NextPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const todoList = useRecoilValue(todoListState);
+  const setTodoList = useSetRecoilState(todoListState);
+
+  const onSubmit: SubmitHandler<TodoInput> = ({ title, text }) => {
+    setTodoList((prev) => [
+      ...prev,
+      {
+        id: datatype.uuid(),
+        title,
+        text,
+        isComplete: false,
+      },
+    ]);
+  };
 
   return (
     <div>
@@ -40,7 +55,12 @@ const Home: NextPage = () => {
           </Box>
         </Container>
       </Flex>
-      <TodoItemCreator onClose={onClose} isOpen={isOpen} />
+      <TodoItemForm
+        formType="Add"
+        onValid={onSubmit}
+        onClose={onClose}
+        isOpen={isOpen}
+      />
     </div>
   );
 };

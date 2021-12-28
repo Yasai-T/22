@@ -7,7 +7,7 @@ import {
   HStack,
   IconButton,
 } from "@chakra-ui/react";
-import { VFC } from "react";
+import { useState, VFC } from "react";
 import { useRecoilState } from "recoil";
 import { Todo, todoListState } from "../recoil/todo";
 
@@ -26,6 +26,10 @@ function removeItemAtIndex<T>(arr: T[], index: number) {
 export const TodoCard: VFC<Props> = ({ todo }) => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const index = todoList.findIndex((t) => t === todo);
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  const toggleIsEdit = () => setIsEdit((prev) => !prev);
 
   const toggleItemCompletion = () => {
     const newList = replaceItemAtIndex(todoList, index, {
@@ -49,7 +53,12 @@ export const TodoCard: VFC<Props> = ({ todo }) => {
             </Badge>
           )}
         </Checkbox>
-        <IconButton aria-label="edit todo item" isRound icon={<EditIcon />} />
+        <IconButton
+          isRound
+          aria-label="edit todo item"
+          icon={<EditIcon />}
+          onClick={toggleIsEdit}
+        />
       </HStack>
       <Heading as="h4" size="lg" py="2">
         {todo.title}
