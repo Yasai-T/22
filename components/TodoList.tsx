@@ -26,17 +26,17 @@ export const TodoList: VFC = () => {
 const TodoListSkeleton: VFC = () => {
   return (
     <VStack spacing={2} align={"stretch"}>
-      <Skeleton>
+      <Skeleton borderRadius="lg">
         <TodoCard
           todo={{ id: "", title: "", isComplete: true, relatedList: [] }}
         />
       </Skeleton>
-      <Skeleton>
+      <Skeleton borderRadius="lg">
         <TodoCard
           todo={{ id: "", title: "", isComplete: true, relatedList: [] }}
         />
       </Skeleton>
-      <Skeleton>
+      <Skeleton borderRadius="lg">
         <TodoCard
           todo={{ id: "", title: "", isComplete: true, relatedList: [] }}
         />
